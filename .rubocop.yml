@@ -1,0 +1,23 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
+  Exclude:
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "lib/tasks/*"
+    - "spec/**/**/*"
+    - "bin/*"
+    - "README.md"
+Metrics/MethodLength:
+  Max: 30
+Metrics/AbcSize:
+  Max: 30
+Metrics/ClassLength:
+  Max: 150
+Layout/LineLength:
+  Max: 90
+  # Ignore comments format.
+  AllowedPatterns: ['\A\s*#']

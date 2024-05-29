@@ -1,0 +1,137 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/drivers":
+    get:
+      summary: Fetches all drivers
+      tags:
+      - Drivers
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: Create new driver
+      tags:
+      - Drivers
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                home_address:
+                  type: string
+              required:
+              - home_address
+  "/api/drivers/{driver_id}/rides":
+    get:
+      summary: Get rides data per user
+      tags:
+      - Rides
+      parameters:
+      - name: driver_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: rides data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    required:
+                    - name
+                    - phone
+                    - email
+                    - address
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: '1'
+                        type:
+                          type: string
+                          example: object
+                        attributes:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: '1'
+                            driverId:
+                              type: number
+                              example: 1
+                            startAddress:
+                              type: string
+                              example: Downtown Los Angeles
+                            driverAddress:
+                              type: string
+                              example: '1320 E 7th St #200, Los Angeles, CA 90021'
+                            rideDistance:
+                              type: float
+                              example: 19.256369
+                            rideDuration:
+                              type: float
+                              example: 0.56369
+                            rideEarnings:
+                              type: float
+                              example: 19.25
+                            rideScore:
+                              type: float
+                              example: 25.2
+                            commuteDuration:
+                              type: float
+                              example: -1.25
+                            startAddressCoords:
+                              type: string
+                              example: "-118.25787,34.043974"
+                            destinationAddressCoords:
+                              type: string
+                              example: "-118.25787,34.043974"
+                            driverAddressCoords:
+                              type: string
+                              example: "-118.25787,34.043974"
+    post:
+      summary: Create a new ride for a user
+      tags:
+      - Rides
+      parameters:
+      - name: driver_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_address:
+                  type: string
+                destination_address:
+                  type: string
+              required:
+              - start_address
+              - destination_address
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
