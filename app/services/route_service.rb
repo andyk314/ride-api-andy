@@ -17,11 +17,12 @@ class RouteService
     @service = service
   end
 
+  # TODO: HTTParty has a built-in error handling mechanism
+  # can check response.success? or response.code
   def get
-    response = self.class.get(service, { query: options })
-    JSON.parse(response.body)
+    self.class.get(service, { query: options })
   rescue StandardError => e
-    puts "Failed to get route: #{e.message}"
+    Rails.logger("Failed to get route: #{e.message}")
     {}
   end
 end

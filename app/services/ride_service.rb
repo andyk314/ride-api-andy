@@ -8,7 +8,7 @@ class RideService
     if geocode_addresses
       ride.save
       fetch_and_populate_ride_info
-    end
+    end # TODO: handle error if geocode_addresses fails
   end
 
   private
@@ -33,15 +33,13 @@ class RideService
   # returns [long, lat] from the response
   def geocode(search)
     response = RouteService.call('/geocode/search', text: search)
-    coordinates = response.dig('features', 0, 'geometry', 'coordinates')
-    raise "Unable to geocode address: #{search}" unless coordinates
-    coordinates
+    response.dig('features', 0, 'geometry', 'coordinates') || []
   end
 
   def fetch_and_populate_ride_info
     RideInfoCalculator.new(ride).process
   rescue StandardError => e
-    puts "Failed to fetch and populate ride info: #{e.message}"
+    Rails.logger.error "Failed to fetch and populate ride info: #{e.message}"
     false
   end
 end

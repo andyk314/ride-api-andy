@@ -18,7 +18,7 @@ paths:
       - Drivers
       parameters: []
       responses:
-        '200':
+        '201':
           description: successful
       requestBody:
         content:
@@ -39,71 +39,12 @@ paths:
       - name: driver_id
         in: path
         required: true
+        description: ID of the driver
         schema:
           type: string
       responses:
         '200':
           description: rides data
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    required:
-                    - name
-                    - phone
-                    - email
-                    - address
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                          example: '1'
-                        type:
-                          type: string
-                          example: object
-                        attributes:
-                          type: object
-                          properties:
-                            id:
-                              type: string
-                              example: '1'
-                            driverId:
-                              type: number
-                              example: 1
-                            startAddress:
-                              type: string
-                              example: Downtown Los Angeles
-                            driverAddress:
-                              type: string
-                              example: '1320 E 7th St #200, Los Angeles, CA 90021'
-                            rideDistance:
-                              type: float
-                              example: 19.256369
-                            rideDuration:
-                              type: float
-                              example: 0.56369
-                            rideEarnings:
-                              type: float
-                              example: 19.25
-                            rideScore:
-                              type: float
-                              example: 25.2
-                            commuteDuration:
-                              type: float
-                              example: -1.25
-                            startAddressCoords:
-                              type: string
-                              example: "-118.25787,34.043974"
-                            destinationAddressCoords:
-                              type: string
-                              example: "-118.25787,34.043974"
-                            driverAddressCoords:
-                              type: string
-                              example: "-118.25787,34.043974"
     post:
       summary: Create a new ride for a user
       tags:
@@ -112,10 +53,11 @@ paths:
       - name: driver_id
         in: path
         required: true
+        description: ID of the driver
         schema:
           type: string
       responses:
-        '200':
+        '201':
           description: successful
       requestBody:
         content:
