@@ -21,3 +21,5 @@ Layout/LineLength:
   Max: 90
   # Ignore comments format.
   AllowedPatterns: ['\A\s*#']
+Lint/MissingSuper:
+  Enabled: false

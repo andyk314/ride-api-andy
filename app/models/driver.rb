@@ -13,21 +13,10 @@
 #
 class Driver < ApplicationRecord
   has_many :rides, dependent: :destroy
-  after_save :geocode_address, if: :home_address_previously_changed?
+  validates :home_address, presence: true
 
-  def geocode_address
-    response = geocode(home_address)
-    long, lat = response.dig('features', 0, 'geometry', 'coordinates')
-    update(home_address_lat: lat, home_address_long: long) if lat && long
-  end
-
+  # OpenRouteServiceAPI expects [longitude, latitude] format for driving data
   def home_coordinates
-    [home_address_long, home_address_lat].join(',')
-  end
-
-  private
-
-  def geocode(search)
-    RouteService.call('/geocode/search', text: search)
+    [home_address_long, home_address_lat]
   end
 end

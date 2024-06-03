@@ -30,13 +30,17 @@
 #
 class Ride < ApplicationRecord
   belongs_to :driver
+  validates :start_address, :destination_address, presence: true
+  validates :driver_id, { presence: true, numericality: { only_integer: true } }
+
   scope :ordered_by_ride_score, -> { order(ride_score: :desc) }
 
+  # OpenRouteServiceAPI expects [longitude, latitude] format for driving data
   def start_coords
-    [start_address_long, start_address_lat].join(',')
+    [start_address_long, start_address_lat]
   end
 
   def destination_coords
-    [destination_address_long, destination_address_lat].join(',')
+    [destination_address_long, destination_address_lat]
   end
 end

@@ -11,10 +11,6 @@ module ConversionHelper
     (duration_in_seconds.to_f / SECONDS_IN_HOUR)
   end
 
-  def minutes_to_hour(duration_in_minutes)
-    (duration_in_minutes.to_f / MINUTES_IN_HOUR)
-  end
-
   def seconds_to_minutes(duration_in_seconds)
     (duration_in_seconds.to_f / MINUTES_IN_HOUR)
   end
